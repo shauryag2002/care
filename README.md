@@ -76,6 +76,38 @@ Prebuilt docker images for server deployments are available
 on [ghcr](https://github.com/ohcnetwork/care/pkgs/container/care)
 
 For backup and restore use [this](/docs/databases/backup.rst) documentation.
+
+### IM Wrapper and WhatsApp Bot Setup
+
+To set up the IM wrapper and WhatsApp bot, follow these steps:
+
+1. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Configure the IM wrapper and WhatsApp bot in your project. You can find the implementation in the following files:
+   - `care/im_wrapper.py`
+   - `care/im_wrapper/whatsapp_bot.py`
+
+3. Use the IM wrapper and WhatsApp bot in your code to interact with care. Here is an example of how to use them:
+   ```python
+   from care.im_wrapper import IMWrapper
+   from care.im_wrapper.whatsapp_bot import WhatsAppBot
+
+   # Initialize the IM wrapper with the care API
+   care_api = "your_care_api_instance"
+   im_wrapper = IMWrapper(care_api)
+
+   # Initialize the WhatsApp bot with the IM wrapper
+   whatsapp_bot = WhatsAppBot(im_wrapper)
+
+   # Fetch patient records using the WhatsApp bot
+   patient_id = "example_patient_id"
+   patient_records = whatsapp_bot.fetch_patient_records(patient_id)
+   print(patient_records)
+   ```
+
 ## Contributing
 
 We welcome contributions from everyone. Please read our [contributing guidelines](./CONTRIBUTING.md) to get started.
