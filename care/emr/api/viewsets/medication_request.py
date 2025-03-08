@@ -17,6 +17,9 @@ from care.emr.resources.medication.request.spec import (
 from care.emr.resources.questionnaire.spec import SubjectType
 from care.security.authorization import AuthorizationController
 from care.users.models import User
+# from care.utils.whatsapp.message_handler import WhatsAppMessageHandler
+import logging
+logger = logging.getLogger(__name__)
 
 
 class StatusFilter(filters.CharFilter):
@@ -46,6 +49,7 @@ class MedicationRequestViewSet(
     questionnaire_subject_type = SubjectType.patient.value
     filterset_class = MedicationRequestFilter
     filter_backends = [filters.DjangoFilterBackend]
+    # whatsapp_client = WhatsAppMessageHandler("919971439246")
 
     def get_queryset(self):
         self.authorize_read_encounter()
@@ -67,6 +71,38 @@ class MedicationRequestViewSet(
                 raise PermissionDenied(
                     "Requester does not have permission to update encounter"
                 )
+
+    # def perform_create(self, serializer):
+    #     # instance = serializer.save()
+    #     self.whatsapp_client.send_whatsapp_message(
+    #         message="medications"
+    #         )
+    #     instance = super().perform_create(serializer)
+    #     # self._send_whatsapp_notification(instance)
+    #     return instance
+
+    # def perform_update(self,request, *args,**kwargs):
+    #     # instance = serializer.save()
+    #     logger.info(f"phonyy {request.user.phone_number}")
+    #     instance = super().perform_update(request, *args, **kwargs)
+    #     logger.info(f"Medication Request Updated: {instance}")
+    #     # self.whatsapp_client.send_whatsapp_message(
+    #     #     message="medications"
+    #     #     )
+    #     # self._send_whatsapp_notification(instance)
+    #     return instance
+
+    # def _send_whatsapp_notification(self, instance):
+    #     try:
+    #         whatsapp_client = WhatsAppWebhookView()
+    #         if instance.patient and instance.patient.phone_number:
+    #             whatsapp_client.send_whatsapp_message(
+    #                 to_number=instance.patient.phone_number,
+    #                 message="medications"
+    #             )
+    #     except Exception as e:
+    #         # Log the error but don't interrupt the main flow
+    #         print(f"WhatsApp notification error: {e}")
 
 
 InternalQuestionnaireRegistry.register(MedicationRequestViewSet)

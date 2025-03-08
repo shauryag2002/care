@@ -136,6 +136,7 @@ LOCAL_APPS = [
     "care.users",
     "care.audit_log",
     "care.emr",
+    "care.instant_messaging.apps.InstantMessagingConfig",
 ]
 
 PLUGIN_APPS = manager.get_apps()
@@ -722,3 +723,11 @@ SNOWSTORM_DEPLOYMENT_URL = env(
 
 # Path to the typst binary, see scripts/install_typst.sh
 TYPST_BIN = env("TYPST_BIN", default="typst")
+
+# WhatsApp Integration Settings
+# ------------------------------------------------------------------------------
+WHATSAPP_VERIFY_TOKEN = env('WHATSAPP_VERIFY_TOKEN', default='123456')
+WHATSAPP_API_VERSION = env('WHATSAPP_API_VERSION', default='v22.0')
+WHATSAPP_PHONE_NUMBER_ID = env('WHATSAPP_PHONE_NUMBER_ID', default='603357619523414')
+WHATSAPP_BUSINESS_ACCOUNT_ID = env('WHATSAPP_BUSINESS_ACCOUNT_ID', default='986370110112238')
+WHATSAPP_ACCESS_TOKEN = env('WHATSAPP_ACCESS_TOKEN', default='EAAJZBpZB92Vh0BO5hexJLe9cZCgrOdcrSJOSSSW2PfeusFOLSZBKubjmvdAhrgKCnqlBqRW1a6XYj4mfGzSTrNWSA8LcWe9kAaa8lFLRkysixaY8XXZCS5ylMRIkuH2ueZA8NQbGwfelka5BdZAEyAoNbeR7949E2cPdTCXf4xjL6VPNUqFdvlnlIfZCR9WTHKiSRZAxBvyQCXoO2zMT7hwVYAfZA78tkrTTNUggDumPM0b18ZD')

@@ -11,6 +11,7 @@ from care.facility.models.facility import Facility, FacilityUser
 from care.facility.models.notification import Notification
 from care.facility.models.patient import PatientNotes, PatientRegistration
 from care.facility.models.patient_consultation import PatientConsultation
+from care.instant_messaging.views import WhatsAppWebhookView
 from care.facility.models.patient_investigation import (
     InvestigationSession,
     InvestigationValue,
@@ -125,6 +126,7 @@ class NotificationGenerator:
         self.generate_for_facility = generate_for_facility
         self.defer_notifications = defer_notifications
         self.generate_extra_users()
+        self.whatsapp_client = WhatsAppWebhookView()
 
     def serialize_extra_data(self, extra_data):
         if not extra_data:
@@ -186,8 +188,28 @@ class NotificationGenerator:
             if self.event == Notification.Event.CONSULTATION_FILE_UPLOAD_CREATED.value:
                 message = f"Consultation file for Patient {self.caused_object.patient.name} was uploaded by {self.caused_by.get_full_name()}"
             if self.event == Notification.Event.PATIENT_PRESCRIPTION_CREATED.value:
+                # logger.info("Sending WhatsApp Message")
+                # self.whatsapp_client.send_whatsapp_message(to_number=self.caused_object.patient.phone_number, message="medications")
+
+                from care.utils.whatsapp.client import WhatsAppClient
+
+                client = WhatsAppClient()
+                client.send_message(
+                    to_number=self.caused_object.patient.phone_number,
+                    message="Your medications have been updated. Send 'medications' to view your current prescriptions."
+                )
                 message = f"Prescription for Patient {self.caused_object.patient.name} was created by {self.caused_by.get_full_name()}"
             if self.event == Notification.Event.PATIENT_PRESCRIPTION_UPDATED.value:
+                # logger.info("Sending WhatsApp Message")
+
+                # self.whatsapp_client.send_whatsapp_message(to_number=self.caused_object.patient.phone_number, message="medications")
+                from care.utils.whatsapp.client import WhatsAppClient
+
+                client = WhatsAppClient()
+                client.send_message(
+                    to_number=self.caused_object.patient.phone_number,
+                    message="Your medications have been updated. Send 'medications' to view your current prescriptions."
+                )
                 message = f"Prescription for Patient {self.caused_object.patient.name} was updated by {self.caused_by.get_full_name()}"
         elif isinstance(self.caused_object, InvestigationSession):
             if self.event == Notification.Event.INVESTIGATION_SESSION_CREATED.value:

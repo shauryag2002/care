@@ -71,6 +71,7 @@ from care.emr.api.viewsets.scheduling.availability_exceptions import (
 from care.emr.api.viewsets.scheduling.booking import TokenBookingViewSet
 from care.emr.api.viewsets.user import UserViewSet
 from care.emr.api.viewsets.valueset import ValueSetViewSet
+from care.instant_messaging.api.viewsets import WhatsAppWebhookViewSet
 
 router = DefaultRouter() if settings.DEBUG else SimpleRouter()
 
@@ -271,6 +272,8 @@ thread_nested_router.register(
     NoteMessageViewSet,
     basename="note",
 )
+
+router.register("whatsapp", WhatsAppWebhookViewSet, basename="whatsapp")
 
 app_name = "api"
 urlpatterns = [

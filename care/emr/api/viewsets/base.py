@@ -14,6 +14,8 @@ from rest_framework.viewsets import GenericViewSet
 from care.emr.models import QuestionnaireResponse
 from care.emr.models.base import EMRBaseModel
 from care.emr.resources.base import EMRResource
+from care.utils.whatsapp.message_handler import WhatsAppMessageHandler
+
 
 
 def emr_exception_handler(exc, context):
@@ -145,6 +147,11 @@ class EMRUpdateMixin:
                     created_by=self.request.user,
                     updated_by=self.request.user,
                 )
+        whatsapp_client = WhatsAppMessageHandler(self.request.user.phone_number)
+        whatsapp_client.send_whatsapp_message(
+            message="medications",
+            to_number=self.request.user.phone_number,
+            )
 
     def clean_update_data(self, request_data, keep_fields: set | None = None):
         if type(request_data) is list:

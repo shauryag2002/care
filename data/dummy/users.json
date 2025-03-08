@@ -77,7 +77,7 @@
         "model": "users.user",
         "pk": 3,
         "fields": {
-            "password": "argon2$argon2i$v=19$m=512,t=2,p=2$dURxc05pTFBEQ0FP$GPRcyV/Ct/ytctwZRCyZqA",
+            "password": "argon2$argon2i$v=19$m=512,t=2,p=2$N1N5aVMzSWZNUnhL$LT1p3nna/hU8K4lw9g0VYw",
             "last_login": null,
             "is_superuser": false,
             "first_name": "Dummy",

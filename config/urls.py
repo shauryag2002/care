@@ -65,6 +65,7 @@ urlpatterns = [
         name="change_password_view",
     ),
     path("api/v1/", include(api_router.urlpatterns)),
+    path("api/v1/instant-messaging/", include("care.instant_messaging.urls")),
     # Health check urls
     # path("middleware/verify", MiddlewareAuthenticationVerifyView.as_view()),
     # path("middleware/verify-asset", MiddlewareAssetAuthenticationVerifyView.as_view()),
