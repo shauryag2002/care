@@ -147,11 +147,11 @@ class EMRUpdateMixin:
                     created_by=self.request.user,
                     updated_by=self.request.user,
                 )
-        whatsapp_client = WhatsAppMessageHandler(self.request.user.phone_number)
-        whatsapp_client.send_whatsapp_message(
-            message="medications",
-            to_number=self.request.user.phone_number,
-            )
+                whatsapp_client = WhatsAppMessageHandler(self.fetch_patient_from_instance(instance).phone_number)
+                whatsapp_client.send_whatsapp_message(
+                    message="medications",
+                    to_number=self.fetch_patient_from_instance(instance).phone_number,
+                    )
 
     def clean_update_data(self, request_data, keep_fields: set | None = None):
         if type(request_data) is list:
